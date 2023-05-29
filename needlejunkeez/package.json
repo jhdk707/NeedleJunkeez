@@ -1,6 +1,7 @@
 {
   "name": "needlejunkeez",
   "version": "1.0.0",
+  "homepage": "https://needlejunkeez.herokuapp.com",
   "description": "",
   "main": "server/server.js",
   "scripts": {
@@ -17,6 +18,7 @@
     "concurrently": "^5.1.0"
   },
   "dependencies": {
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3"
   }
 }
