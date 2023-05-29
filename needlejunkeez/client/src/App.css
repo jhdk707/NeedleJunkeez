@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,101 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+/* THIS CSS FILE CREATED BY JESSE HUDAK, JEREMY MCCARTER AND TYLER DINSDALE FOR */
+
+/* CSS HEX PALLET
+--platinum: #d3d4d9ff;
+--air-force-blue: #4b88a2ff;
+--fire-brick: #bb0a21ff;
+--eerie-black: #252627ff;
+--snow: #fff9fbff;
+--selective-yellow: #ffb20fff;
+--maize: #ffe548ff;
+--black: #050505ff;
+
+*/
+
+:root {
+  --primary-color: #d3d4d9;
+  --secondary-color: #4b88a2;
+  --tertiary-color: #252627;
+  --accent-color: #050505;
+  --alert-color: #ffb20f;
+  --hover-color: #ffe548;
+  --highlight-color: #fff9fb;
+  --select-color: #bb0a21;
 }
+
+.body {
+  background-color: var(--primary-color);
+}
+
+.mailIcon {
+  display: none;
+}
+
+#welcome {
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#welcomeHello {
+  width: 50%;
+  text-align: center;
+  color: var(--highlight-color);
+  background-color: var(--select-color);
+  border-radius: 5px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#loginStyle,
+#signupStyle {
+  text-align: center;
+}
+
+#signupStyle {
+  margin-top: 30px;
+}
+
+#splashNeedle {
+  color: var(--alert-color);
+}
+
+div.css-0:nth-child(2) {
+  /* padding-left: 1.75em; */
+  justify-content: center;
+  align-items: center;
+  max-width: 70vw;
+}
+
+@media (max-width: 768px) {
+  div.css-0:nth-child(2) {
+    max-width: 90vw;
+  }
+}
+
+@media (max-width: 480px) {
+  div.css-0:nth-child(2) {
+    max-width: 95vw;
+  }
+}
+
+/* EXAMPLES OF HOW TO USE 
+body {
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+}
+.button {
+  background-color: var(--accent-color);
+  color: white;
+} */
+
+/* Additional CSS rules */
