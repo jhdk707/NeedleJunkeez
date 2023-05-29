@@ -33,8 +33,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import Friends from "./components/Friends";
 // import Quickadd from "./components/Quickadd";
 // import Mycollection from "./components/Mycollection";
-// import Signup from "./components/Signup";
-// import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
 // import Home from "./components/home/Home";
 // import Contact from './components/footer/Contact'
 // import Footer from './components/footer/Footer'
@@ -46,21 +46,21 @@ import Theme from "./Theme";
 import Splash from "./pages/Splash";
 
 function App() {
-  // const [showLoginModal, setShowLoginModal] = useState(true);
-  // const [showSignupModal, setShowSignupModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(true);
+  const [showSignupModal, setShowSignupModal] = useState(false);
 
-  // const handleLoginModalClose = () => {
-  //   setShowLoginModal(false);
-  // };
+  const handleLoginModalClose = () => {
+    setShowLoginModal(false);
+  };
 
-  // const handleShowSignupModal = () => {
-  //   setShowLoginModal(false);
-  //   setShowSignupModal(true);
-  // };
+  const handleShowSignupModal = () => {
+    setShowLoginModal(false);
+    setShowSignupModal(true);
+  };
 
-  // const handleSignupModalClose = () => {
-  //   setShowSignupModal(false);
-  // };
+  const handleSignupModalClose = () => {
+    setShowSignupModal(false);
+  };
 
   return (
     <div className="">
@@ -76,19 +76,19 @@ function App() {
 
             <Routes>
               <Route path="/" element={<Splash />} />
-              {/* <Route path="/home" element={<Home />} />
+              {/* <Route path="/home" element={<Home />} /> */}
               <Route path="/signup" element={<Signup />} />
-              <Route path="/mycollection" element={<Mycollection />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/quickadd" element={<Quickadd />} />
-              <Route path="/friends" element={<Friends />} />
-              <Route path="/donations" element={<Donations />} />
-              <Route path="/search/spot" element={<SpotResults />} />
-              <Route path="/search/disc" element={<DiscResults />} /> */}
+              {/* <Route path="/mycollection" element={<Mycollection />} /> */}
+              {/* <Route path="/profile" element={<Profile />} /> */}
+              {/* <Route path="/contact" element={<Contact />} /> */}
+              {/* <Route path="/quickadd" element={<Quickadd />} /> */}
+              {/* <Route path="/friends" element={<Friends />} /> */}
+              {/* <Route path="/donations" element={<Donations />} /> */}
+              {/* <Route path="/search/spot" element={<SpotResults />} /> */}
+              {/* <Route path="/search/disc" element={<DiscResults />} /> */}
             </Routes>
             {/* <Splash /> */}
-            {/* <Routes>
+            <Routes>
               <Route
                 path="/"
                 element={
@@ -101,8 +101,10 @@ function App() {
                 }
               />
             </Routes>
-            {showSignupModal ? <Signup onClose={handleSignupModalClose} /> : null}
-            <Footer /> */}
+            {showSignupModal ? (
+              <Signup onClose={handleSignupModalClose} />
+            ) : null}
+            {/* <Footer /> */}
           </div>
         </ThemeProvider>
       </HashRouter>
