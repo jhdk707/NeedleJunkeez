@@ -26,9 +26,11 @@ const port = process.env.PORT || 3001;
 
 // Serve production assets and handle unrecognized routes
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../client/build")));
+// }
+
+app.use(express.static(path.join(__dirname, "build")));
 
 // dotenv process for DB accsess
 const mongodburl =
@@ -68,6 +70,10 @@ async function startApolloServer() {
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/build/index.html"));
   });
+
+  // app.get("*", function (req, res) {
+  //   res.sendFile(path.join(__dirname, "build", "index.html"));
+  // });
 
   // Signup endpoint
   app.post("/api/signup", async (req, res) => {
