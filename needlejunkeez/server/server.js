@@ -5,6 +5,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const { ApolloServer } = require("apollo-server-express");
+const path = require("path");
 
 // Import your Mongoose models
 const Album = require("../server/models/album");
@@ -18,13 +19,16 @@ const typeDefs = require("../server/resolvers/typeDefs");
 
 const app = express();
 const port = process.env.PORT || 3001;
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// const port = process.env.PORT || 3001;
+// app.listen(port, () => {
+//   console.log(`Server running on port ${port}`);
+// });
 
-// app.listen({ port: process.env.PORT || 3001 }, () =>
-//   console.log(`Server ready at http://localhost:3001${server.graphqlPath}`)
-// );
+// Serve production assets and handle unrecognized routes
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
+}
 
 // dotenv process for DB accsess
 const mongodburl =
@@ -56,6 +60,14 @@ async function startApolloServer() {
   // app.use(express.json());
   app.use(bodyParser.json({ extended: true }));
   app.use(cors()); // Enable CORS for all routes
+
+  // app.get(/^(?!\/graphql).*$/, (req, res) => {
+  //   res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  // });
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  });
 
   // Signup endpoint
   app.post("/api/signup", async (req, res) => {
@@ -119,10 +131,14 @@ async function startApolloServer() {
     }
   });
 
-  app.listen({ port: 3001 }, () =>
-    console.log(`Server ready at http://localhost:3001${server.graphqlPath}`)
+  // app.listen({ port: 3001 }, () =>
+  //   console.log(`Server ready at http://localhost:3001${server.graphqlPath}`)
+  // );
+
+  app.listen(port, () =>
+    console.log(`Server running on port ${port}${server.graphqlPath}`)
   );
 }
 
-// // Call the function to start the Apollo server
+// Call the function to start the Apollo server
 startApolloServer();

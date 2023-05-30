@@ -1,11 +1,11 @@
 {
   "name": "needlejunkeez",
   "version": "1.0.0",
-  "homepage": "https://needlejunkeez.herokuapp.com",
   "description": "",
+  "private":"true",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server --ignore client",
+    "start": "node server/server.js",
     "dev": "concurrently \"cd server && npm run start\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "node": "^20.2.0"
   }
 }
