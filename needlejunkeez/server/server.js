@@ -51,7 +51,6 @@ async function startApolloServer() {
   });
   await server.start();
   server.applyMiddleware({ app });
-  // app.use(express.json());
   app.use(bodyParser.json({ extended: true }));
   app.use(cors()); // Enable CORS for all routes
 
@@ -120,10 +119,6 @@ async function startApolloServer() {
       res.status(500).json({ error: "Failed to save album" });
     }
   });
-
-  // app.listen({ port: 3001 }, () =>
-  //   console.log(`Server ready at http://localhost:3001${server.graphqlPath}`)
-  // );
 
   app.listen(port, () =>
     console.log(`Server running on port ${port}${server.graphqlPath}`)

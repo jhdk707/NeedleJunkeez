@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import Hello from "../assets/welcome-photo.png";
+import Hello from "../assets/welcomejunkeezlogo.png";
 import "../App.css";
 import Signup from "../components/Signup";
 import Login from "../components/Login";
