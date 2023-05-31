@@ -1,8 +1,26 @@
-import React from "react";
-import Hello from "../assets/welcome-photo.png";
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import Hello from "../assets/welcomejunkeezlogo.png";
 import "../App.css";
+import Signup from "../components/Signup";
+import Login from "../components/Login";
 
 function Splash() {
+  const [showLoginModal, setShowLoginModal] = useState(true);
+  const [showSignupModal, setShowSignupModal] = useState(false);
+
+  const handleLoginModalClose = () => {
+    setShowLoginModal(false);
+  };
+
+  const handleShowSignupModal = () => {
+    setShowLoginModal(false);
+    setShowSignupModal(true);
+  };
+
+  const handleSignupModalClose = () => {
+    setShowSignupModal(false);
+  };
   return (
     <div>
       <img src={Hello} alt="Welcome" id="welcome" />
@@ -14,6 +32,22 @@ function Splash() {
         recordz, and hopefully find new trackz. Even see who has the dopest tech
         to consume that goodness. Join us below and get those juices flowing.
       </p>
+      <div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              showLoginModal ? (
+                <Login
+                  onClose={handleLoginModalClose}
+                  onShowSignup={handleShowSignupModal}
+                />
+              ) : null
+            }
+          />
+        </Routes>
+        {showSignupModal ? <Signup onClose={handleSignupModalClose} /> : null}
+      </div>
     </div>
   );
 }

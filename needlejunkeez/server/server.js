@@ -19,18 +19,11 @@ const typeDefs = require("../server/resolvers/typeDefs");
 
 const app = express();
 const port = process.env.PORT || 3001;
-// const port = process.env.PORT || 3001;
-// app.listen(port, () => {
-//   console.log(`Server running on port ${port}`);
-// });
 
-// Serve production assets and handle unrecognized routes
-
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static(path.join(__dirname, "../client/build")));
-// }
-
-app.use(express.static(path.join(__dirname, "build")));
+// Serve production assets and handle unrecognized routes THIS WORKS RIGHT NOW DO NOT TOUCH
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
+}
 
 // dotenv process for DB accsess
 const mongodburl =
@@ -57,23 +50,13 @@ async function startApolloServer() {
     persistedQueries: false,
   });
   await server.start();
-  const app = express();
   server.applyMiddleware({ app });
-  // app.use(express.json());
   app.use(bodyParser.json({ extended: true }));
   app.use(cors()); // Enable CORS for all routes
 
-  // app.get(/^(?!\/graphql).*$/, (req, res) => {
-  //   res.sendFile(path.join(__dirname, "../client/build/index.html"));
-  // });
-
-  app.get("*", (req, res) => {
+  app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/build/index.html"));
   });
-
-  // app.get("*", function (req, res) {
-  //   res.sendFile(path.join(__dirname, "build", "index.html"));
-  // });
 
   // Signup endpoint
   app.post("/api/signup", async (req, res) => {
@@ -136,10 +119,6 @@ async function startApolloServer() {
       res.status(500).json({ error: "Failed to save album" });
     }
   });
-
-  // app.listen({ port: 3001 }, () =>
-  //   console.log(`Server ready at http://localhost:3001${server.graphqlPath}`)
-  // );
 
   app.listen(port, () =>
     console.log(`Server running on port ${port}${server.graphqlPath}`)
