@@ -8,7 +8,7 @@
     "start": "node server/server.js",
     "dev": "concurrently \"cd server && npm run start\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
-    "seed": "cd server && npm run seed",
+    "seed": "cd server && npm run seed", 
     "build": "cd client && npm run build"
   },
   "keywords": [],
@@ -21,5 +21,6 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "node": "^20.2.0"
-  }
+  },
+  "proxy": "http://localhost:3001"
 }

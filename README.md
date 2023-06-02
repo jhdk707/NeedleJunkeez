@@ -52,6 +52,8 @@ Moving forward we look to implement a lot into this site. We plan to make it mor
 
 Jesse Hudak, Tyler Dinslage, Jeremy McCarter, BCS tutor's and TA's.
 
+Visit the previous repo here to view inital project 3 build that has all collaboration from team: https://github.com/jhdk707/NeedleJunkies
+
 ## License
 
 This project is licensed under the MIT license.

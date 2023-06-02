@@ -21,7 +21,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createAlbum(input: AlbumInput!): Album!
+    createAlbum(input: AlbumInput!): Album
   }
 
   input AlbumInput {
