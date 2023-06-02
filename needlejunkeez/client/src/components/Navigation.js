@@ -1,5 +1,4 @@
 import * as React from "react";
-// import SearchFunction from "./SearchFunction";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -10,16 +9,11 @@ import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-// import MenuIcon from "@mui/icons-material/Menu";
-// import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-// import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-// import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import "../App.css";
-// import Splash from "./pages/Splash";
 
 const pages = [
   {
@@ -42,56 +36,10 @@ const pages = [
     page: "Search for Stuff",
     path: "/search/spot",
   },
-  // {
-  //   id: 3,
-  //   page: "Search Discogs",
-  //   path: "/search/disc",
-  // },
 ];
-
-// const Search = styled("div")(({ theme }) => ({
-//   position: "relative",
-//   borderRadius: theme.shape.borderRadius,
-//   backgroundColor: alpha(theme.palette.common.white, 0.15),
-//   "&:hover": {
-//     backgroundColor: alpha(theme.palette.common.white, 0.25),
-//   },
-//   marginRight: theme.spacing(2),
-//   marginLeft: 0,
-//   width: "100%",
-//   [theme.breakpoints.up("sm")]: {
-//     marginLeft: theme.spacing(3),
-//     width: "auto",
-//   },
-// }));
-
-// const SearchIconWrapper = styled("div")(({ theme }) => ({
-//   padding: theme.spacing(0, 2),
-//   height: "100%",
-//   position: "absolute",
-//   pointerEvents: "none",
-//   display: "flex",
-//   alignItems: "center",
-//   justifyContent: "center",
-// }));
-
-// const StyledInputBase = styled(InputBase)(({ theme }) => ({
-//   color: "inherit",
-//   "& .MuiInputBase-input": {
-//     padding: theme.spacing(1, 1, 1, 0),
-//     // vertical padding + font size from searchIcon
-//     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-//     transition: theme.transitions.create("width"),
-//     width: "100%",
-//     [theme.breakpoints.up("md")]: {
-//       width: "20ch",
-//     },
-//   },
-// }));
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  // notif icon state variable
   const [notifAnchorEl, setNotifAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -102,9 +50,8 @@ export default function PrimarySearchAppBar() {
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  // trying to add notification pop up menu
+
   const handleAlertMenuOpen = (event) => {
-    console.log("target", event.currentTarget.value);
     setNotifAnchorEl(event.currentTarget);
   };
 
@@ -123,11 +70,6 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-  // const handleCloseNavMenu = () => {
-  //   setAnchorElNav(null);
-  // };
-
-  // PROFILE MENU
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -154,8 +96,6 @@ export default function PrimarySearchAppBar() {
       </Link>
     </Menu>
   );
-
-  // NOTIFICATIONS MENU
 
   const notificationMenuId = "primary-search-account-notification-menu";
   const renderNotificationsMenu = (
@@ -200,14 +140,6 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {/* <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon className='mailIcon'/>
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem> */}
       <MenuItem>
         <IconButton
           size="large"
@@ -232,6 +164,13 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
+      {pages.map((page) => (
+        <MenuItem key={page.id} onClick={handleMobileMenuClose}>
+          <Link to={page.path} style={{ color: "inherit", textDecoration: "none" }}>
+            {page.page}
+          </Link>
+        </MenuItem>
+      ))}
     </Menu>
   );
 
@@ -239,15 +178,13 @@ export default function PrimarySearchAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "#4b88a2ff" }}>
         <Toolbar>
-          {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton> */}
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
+            <Link to="/" id="splashNeedle" style={{ textAlign: "center", width: "100%" }}>
+              <Typography variant="h6" noWrap>
+                Needle / Junkeez
+              </Typography>
+            </Link>
+          </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Link to="/" id="splashNeedle">
               <Typography
@@ -260,32 +197,11 @@ export default function PrimarySearchAppBar() {
               </Typography>
             </Link>
           </Box>
-          {/* start of link to pages code */}
-          {/* <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-
-          </Typography> */}
-
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Link
                 to={page.path}
                 key={page.id}
-                // onClick={handleCloseNavMenu}
                 style={{
                   color: "white",
                   display: "block",
@@ -299,19 +215,8 @@ export default function PrimarySearchAppBar() {
               </Link>
             ))}
           </Box>
-          {/* end of added buttons code */}
-          {/* <SearchFunction /> */}
-
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={456} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton> */}
-
-            {/*  NOTIFICATION ICON*/}
-
             <IconButton
               size="large"
               aria-label="show 20 new notifications"
@@ -323,9 +228,6 @@ export default function PrimarySearchAppBar() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-
-            {/*  PROFILE ICON*/}
-
             <IconButton
               size="large"
               edge="end"
