@@ -199,32 +199,29 @@ mongoose
     console.error("Error connecting to MongoDB:", error);
   });
 
+// Apply cors and express.json middleware before defining routes
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Replace with your client's origin
+    methods: ["GET", "POST"], // Specify the allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Specify the allowed headers
+  })
+);
+app.use(express.json());
+
 // Proxy server for Spotify search
 app.get("/api/search-spotify", async (req, res) => {
-  // const searchTerm = req.query.q;
-  // const url = `https://api.spotify.com/v1/search?q=${encodeURIComponent(
-  //   searchTerm
-  // )}&type=album`;
+  const searchTerm = req.query.q; // Access the search term from req.query
 
-  // const headers = {
-  //   "x-rapidapi-key": process.env.REACT_APP_SPOTIFY_API_KEY,
-  //   "x-rapidapi-host": "spott.p.rapidapi.com",
-  // };
-
-  // try {
-  //   const response = await axios.get(url, { headers });
-  //   res.json(response.data);
-  // } catch (error) {
-  //   console.error("Error occurred while searching Spotify", error);
-  //   res
-  //     .status(500)
-  //     .json({ error: "An error occurred while searching Spotify" });
-  // }
   const options = {
     method: "GET",
-    url: "https://spotify23.p.rapidapi.com/albums/",
+    url: "https://spotify23.p.rapidapi.com/search/",
     params: {
-      ids: "3IBcauSj5M2A6lTeffJzdv",
+      q: encodeURIComponent(searchTerm),
+      type: "multi",
+      offset: "0",
+      limit: "10",
+      numberOfTopResults: "5",
     },
     headers: {
       "X-RapidAPI-Key": "16f87e2059mshe937410fce7f782p1d1cc9jsnae5dd54150f4",
@@ -235,8 +232,10 @@ app.get("/api/search-spotify", async (req, res) => {
   try {
     const response = await axios.request(options);
     console.log(response.data);
+    res.json(response.data); // Send the response data back to the client
   } catch (error) {
     console.error(error);
+    res.status(500).json({ error: "Internal Server Error" }); // Send an error response if the API call fails
   }
 });
 
@@ -248,15 +247,17 @@ async function startApolloServer() {
   });
   await server.start();
   server.applyMiddleware({ app });
-  app.use(bodyParser.json({ extended: true }));
+  // app.use(express.json());
 
-  app.use(
-    cors({
-      origin: "http://localhost:3000", // Replace with your client's origin
-      methods: ["GET", "POST"], // Specify the allowed HTTP methods
-      allowedHeaders: ["Content-Type", "Authorization"], // Specify the allowed headers
-    })
-  );
+  // app.use(bodyParser.json({ extended: true }));
+
+  // app.use(
+  //   cors({
+  //     origin: "http://localhost:3000", // Replace with your client's origin
+  //     methods: ["GET", "POST"], // Specify the allowed HTTP methods
+  //     allowedHeaders: ["Content-Type", "Authorization"], // Specify the allowed headers
+  //   })
+  // );
 
   // Serves the REACT APP
   app.get("/", (req, res) => {
