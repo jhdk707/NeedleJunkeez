@@ -6,12 +6,12 @@ import {
   CardContent,
   CardMedia,
   Avatar,
-  TextField,
   Button,
+  Stack,
 } from "@mui/material";
+
 import { styled } from "@mui/system";
 import MyTech from "../components/MyTech";
-// import Ants from "../assets/Ants.jpg";
 import Horses from "../assets/Horses.jpg";
 import WhiteBloodCells from "../assets/WhiteBloodCells.jpg";
 import jesseImage from "../assets/jessederp.png";
@@ -19,6 +19,7 @@ import Pearl from "../assets/Pearl.jpg";
 import Transformer from "../assets/Transformer.jpeg";
 import MarqueeMoon from "../assets/MarqueeMoon.jpg";
 import ComeMyFanatics from "../assets/ComeMyFanatics..jpg";
+import { TextField, InputBase } from "@mui/material";
 
 const HomePage = () => {
   const user = { name: "John Doe" }; // Simulated user data
@@ -74,10 +75,10 @@ const HomePage = () => {
 
   const CenteredContainer = styled(Box)(({ theme }) => ({
     display: "flex",
-    justifyContent: "center", // Center horizontally
-    alignItems: "center", // Center vertically
+    justifyContent: "center",
+    alignItems: "center",
     flexDirection: "column",
-    height: "", // Adjust the height as needed
+    height: "",
   }));
 
   const handleBackgroundColorChange = (event) => {
@@ -85,27 +86,27 @@ const HomePage = () => {
     setBackgroundColor(color);
     localStorage.setItem("background-color", color);
   };
-
+  
   const handleTextColorChange = (event) => {
     const color = event.target.value;
     setTextColor(color);
     localStorage.setItem("text-color", color);
   };
-
+  
   const handleBackgroundImageUpload = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
-
+  
     reader.onload = () => {
       setBackgroundImage(reader.result);
       localStorage.setItem("background-image", reader.result);
     };
-
+  
     if (file) {
       reader.readAsDataURL(file);
     }
   };
-
+  
   const handleResetImage = () => {
     setBackgroundImage(null);
     localStorage.removeItem("background-image");
@@ -129,56 +130,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        height: "100vh",
-        overflow: "hidden",
-        backgroundColor: backgroundColor,
-        color: textColor,
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: "cover",
-      }}
-    >
-      <div
-        style={{
-          width: "300px",
-          borderRight: "3px solid #ffb20f",
-          padding: "20px",
-          overflow: "auto",
-        }}
-      >
-        <Box mb={4}>
-          <Typography variant="h6" sx={{ textAlign: "center" }}>
-            Your Favorites:
-          </Typography>
-          <ol style={{ listStyle: "decimal", paddingLeft: "20px" }}>
-            {faves.slice(0, 3).map((album, index) => (
-              <li key={index}>
-                <Card
-                  sx={{
-                    backgroundColor: "#252627",
-                    color: "white",
-                    textAlign: "center",
-                  }}
-                >
-                  <CardMedia
-                    component="img"
-                    height="200"
-                    image={album.image || ""}
-                    alt={album.album || ""}
-                  />
-                  <CardContent>
-                    <Typography variant="subtitle1">{album.artist}</Typography>
-                    <Typography variant="subtitle2">{album.album}</Typography>
-                  </CardContent>
-                </Card>
-              </li>
-            ))}
-          </ol>
-        </Box>
-        {/* <MyTech /> */}
-      </div>
+    <Stack direction={{ xs: "column", sm: "row" }}>
       <div style={{ flex: "1", padding: "20px", overflow: "auto" }}>
         <CenteredContainer>
           <Typography variant="h4" component="div">
@@ -191,16 +143,15 @@ const HomePage = () => {
           />
         </CenteredContainer>
         <Box
-          mt={4} // Increase the top margin to create more spacing
+          mt={4}
           display="flex"
           flexDirection="column"
           alignItems="center"
-          justifyContent="center" // Center the items horizontally
-          minHeight="40vh" // Adjust the height as needed
+          justifyContent="center"
+          minHeight="40vh"
         >
           <Typography variant="h6">
             Since you liked Horses, you may also like...
-            {/* {savedAlbums[0].album} */}
           </Typography>
           <Box
             sx={{
@@ -240,15 +191,51 @@ const HomePage = () => {
           </Box>
         </Box>
       </div>
+      <Box mb={4}
+       sx={{
+        borderLeft: "3px solid #ffb20f",
+        paddingLeft: "0px",
+        overflow: "auto",
+      }}>
+        <Typography variant="h6" sx={{ textAlign: "center" }}>
+          Your Favorites:
+        </Typography>
+        <ul style={{ listStyle: "none", paddingLeft: "20px" }}>
+          {faves.slice(0, 3).map((album, index) => (
+            <li key={index}>
+              <Card
+                sx={{
+                  backgroundColor: "#252627",
+                  color: "white",
+                  textAlign: "center",
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  height="50%"
+                  width='auto'
+                  image={album.image || ""}
+                  alt={album.album || ""}
+                />
+                <CardContent>
+                  <Typography variant="subtitle1">{album.artist}</Typography>
+                  <Typography variant="subtitle2">{album.album}</Typography>
+                </CardContent>
+              </Card>
+            </li>
+          ))}
+        </ul>
+      </Box>
       <div
         style={{
           width: "300px",
           borderLeft: "3px solid #ffb20f",
-          padding: "20px",
+          padding: "5px",
           overflow: "auto",
         }}
       >
-        <Box mb={4}>
+        <Box mb={4}
+        >
           <Typography variant="h6">Customization:</Typography>
           <TextField
             label="Background Color"
@@ -276,8 +263,9 @@ const HomePage = () => {
         </Box>
         <MyTech />
       </div>
-    </div>
+    </Stack>
   );
+  
 };
 
 export default HomePage;
