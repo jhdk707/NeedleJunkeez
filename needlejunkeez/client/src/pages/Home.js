@@ -6,12 +6,12 @@ import {
   CardContent,
   CardMedia,
   Avatar,
-  TextField,
   Button,
+  Stack,
+  TextField,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import MyTech from "../components/MyTech";
-// import Ants from "../assets/Ants.jpg";
 import Horses from "../assets/Horses.jpg";
 import WhiteBloodCells from "../assets/WhiteBloodCells.jpg";
 import jesseImage from "../assets/jessederp.png";
@@ -74,10 +74,10 @@ const HomePage = () => {
 
   const CenteredContainer = styled(Box)(({ theme }) => ({
     display: "flex",
-    justifyContent: "center", // Center horizontally
-    alignItems: "center", // Center vertically
+    justifyContent: "center",
+    alignItems: "center",
     flexDirection: "column",
-    height: "", // Adjust the height as needed
+    height: "",
   }));
 
   const handleBackgroundColorChange = (event) => {
@@ -131,28 +131,95 @@ const HomePage = () => {
   return (
     <div
       style={{
-        display: "flex",
-        height: "100vh",
-        overflow: "hidden",
         backgroundColor: backgroundColor,
         color: textColor,
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: "cover",
       }}
     >
       <div
         style={{
-          width: "300px",
-          borderRight: "3px solid #ffb20f",
-          padding: "20px",
-          overflow: "auto",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: -1,
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
         }}
-      >
-        <Box mb={4}>
+      />
+      <Stack direction={{ xs: "column", sm: "row" }}>
+        <div style={{ flex: "1", padding: "20px", overflow: "auto" }}>
+          <CenteredContainer>
+            <Typography variant="h4" component="div">
+              Welcome, {formattedName}!
+            </Typography>
+            <Avatar
+              sx={{ width: 100, height: 100, mt: 2 }}
+              alt={user.name}
+              src={jesseImage}
+            />
+          </CenteredContainer>
+          <Box
+            mt={4}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            minHeight="40vh"
+          >
+            <Typography variant="h6">
+              Since you liked Horses, you may also like...
+            </Typography>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: `repeat(auto-fit, minmax(200px, 1fr))`,
+                gridGap: "16px",
+                width: "80%",
+                maxHeight: "100%",
+                overflow: "auto",
+                marginTop: "16px",
+              }}
+            >
+              {savedAlbums.slice(0, minColumns).map((album, index) => (
+                <Card key={index} sx={{ backgroundColor: "#252627" }}>
+                  <CardMedia
+                    component="img"
+                    height=""
+                    image={album.image}
+                    alt={album.album}
+                  />
+                  <CardContent>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{ textAlign: "center", color: "white" }}
+                    >
+                      {album.artist}
+                    </Typography>
+                    <Typography
+                      variant="subtitle2"
+                      sx={{ textAlign: "center", color: "white" }}
+                    >
+                      {album.album}{" "}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              ))}
+            </Box>
+          </Box>
+        </div>
+        <Box
+          mb={4}
+          sx={{
+            borderLeft: "3px solid #ffb20f",
+            paddingLeft: "0px",
+            overflow: "auto",
+          }}
+        >
           <Typography variant="h6" sx={{ textAlign: "center" }}>
             Your Favorites:
           </Typography>
-          <ol style={{ listStyle: "decimal", paddingLeft: "20px" }}>
+          <ul style={{ listStyle: "none", paddingLeft: "20px" }}>
             {faves.slice(0, 3).map((album, index) => (
               <li key={index}>
                 <Card
@@ -164,7 +231,8 @@ const HomePage = () => {
                 >
                   <CardMedia
                     component="img"
-                    height="200"
+                    height="50%"
+                    width="auto"
                     image={album.image || ""}
                     alt={album.album || ""}
                   />
@@ -175,107 +243,45 @@ const HomePage = () => {
                 </Card>
               </li>
             ))}
-          </ol>
+          </ul>
         </Box>
-        {/* <MyTech /> */}
-      </div>
-      <div style={{ flex: "1", padding: "20px", overflow: "auto" }}>
-        <CenteredContainer>
-          <Typography variant="h4" component="div">
-            Welcome, {formattedName}!
-          </Typography>
-          <Avatar
-            sx={{ width: 100, height: 100, mt: 2 }}
-            alt={user.name}
-            src={jesseImage}
-          />
-        </CenteredContainer>
-        <Box
-          mt={4} // Increase the top margin to create more spacing
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center" // Center the items horizontally
-          minHeight="40vh" // Adjust the height as needed
+        <div
+          style={{
+            width: "300px",
+            borderLeft: "3px solid #ffb20f",
+            padding: "5px",
+            overflow: "auto",
+          }}
         >
-          <Typography variant="h6">
-            Since you liked Horses, you may also like...
-            {/* {savedAlbums[0].album} */}
-          </Typography>
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: `repeat(auto-fit, minmax(200px, 1fr))`,
-              gridGap: "16px",
-              width: "80%",
-              maxHeight: "100%",
-              overflow: "auto",
-              marginTop: "16px",
-            }}
-          >
-            {savedAlbums.slice(0, minColumns).map((album, index) => (
-              <Card key={index} sx={{ backgroundColor: "#252627" }}>
-                <CardMedia
-                  component="img"
-                  height=""
-                  image={album.image}
-                  alt={album.album}
-                />
-                <CardContent>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ textAlign: "center", color: "white" }}
-                  >
-                    {album.artist}
-                  </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    sx={{ textAlign: "center", color: "white" }}
-                  >
-                    {album.album}{" "}
-                  </Typography>
-                </CardContent>
-              </Card>
-            ))}
+          <Box mb={4}>
+            <Typography variant="h6">Customization:</Typography>
+            <TextField
+              label="Background Color"
+              value={backgroundColor}
+              onChange={handleBackgroundColorChange}
+              sx={{ marginBottom: 2 }}
+            />
+            <TextField
+              label="Text Color"
+              value={textColor}
+              onChange={handleTextColorChange}
+              sx={{ marginBottom: 2 }}
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleBackgroundImageUpload}
+              sx={{ marginBottom: 2 }}
+            />
+            {backgroundImage && (
+              <Button onClick={handleResetImage} sx={{ marginBottom: 2 }}>
+                Reset Image
+              </Button>
+            )}
           </Box>
-        </Box>
-      </div>
-      <div
-        style={{
-          width: "300px",
-          borderLeft: "3px solid #ffb20f",
-          padding: "20px",
-          overflow: "auto",
-        }}
-      >
-        <Box mb={4}>
-          <Typography variant="h6">Customization:</Typography>
-          <TextField
-            label="Background Color"
-            value={backgroundColor}
-            onChange={handleBackgroundColorChange}
-            sx={{ marginBottom: 2 }}
-          />
-          <TextField
-            label="Text Color"
-            value={textColor}
-            onChange={handleTextColorChange}
-            sx={{ marginBottom: 2 }}
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleBackgroundImageUpload}
-            sx={{ marginBottom: 2 }}
-          />
-          {backgroundImage && (
-            <Button onClick={handleResetImage} sx={{ marginBottom: 2 }}>
-              Reset Image
-            </Button>
-          )}
-        </Box>
-        <MyTech />
-      </div>
+          <MyTech />
+        </div>
+      </Stack>
     </div>
   );
 };
