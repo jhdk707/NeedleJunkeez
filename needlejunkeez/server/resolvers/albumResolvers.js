@@ -76,6 +76,7 @@ const albumResolvers = {
   Mutation: {
     createAlbum: async (_, { input }) => {
       try {
+        // saved album ID from Spotify API
         const album = new Album({
           uri: input.uri,
           name: input.name,
