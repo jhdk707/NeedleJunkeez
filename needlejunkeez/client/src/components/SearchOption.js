@@ -3,6 +3,7 @@ import { TextField, Button, Menu, MenuItem } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function SearchFunction({ updateResults }) {
     const [searchTerm, setSearchTerm] = useState("");
@@ -48,13 +49,12 @@ function SearchFunction({ updateResults }) {
     };
 
     const searchSpotAlbum = async (searchTerm) => {
-        // Perform search logic using searchTerm
+
         const url = `https://spotify23.p.rapidapi.com/search/?q=${encodeURIComponent(
             searchTerm
         )}&type=albums`;
 
         const options = {
-            method: "GET",
             headers: {
                 "X-RapidAPI-Key": process.env.REACT_APP_SPOTIFY_API_KEY,
                 "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
@@ -62,19 +62,16 @@ function SearchFunction({ updateResults }) {
         };
 
         try {
-            const response = await fetch(url, options);
+            const response = await axios.get(url, options);
 
-            if (response.ok) {
-                const result = await response.json();
-                console.log(result);
-                updateResults(result);
-            } else {
-                console.error("Error occurred while searching");
-            }
+            const result = response.data;
+            console.log(result);
+            updateResults(result);
         } catch (error) {
             console.error("Error occurred while searching", error);
         }
     };
+
 
     const searchDiscogsAlbum = async (searchTerm) => {
         // Perform search logic using searchTerm
