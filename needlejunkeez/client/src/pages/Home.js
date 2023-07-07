@@ -19,6 +19,7 @@ import Pearl from "../assets/Pearl.jpg";
 import Transformer from "../assets/Transformer.jpeg";
 import MarqueeMoon from "../assets/MarqueeMoon.jpg";
 import ComeMyFanatics from "../assets/ComeMyFanatics..jpg";
+import "../Homepage.css"
 
 const HomePage = () => {
   const user = { name: "John Doe" }; // Simulated user data
@@ -97,8 +98,9 @@ const HomePage = () => {
     const reader = new FileReader();
 
     reader.onload = () => {
-      setBackgroundImage(reader.result);
-      localStorage.setItem("background-image", reader.result);
+      const imageUrl = reader.result;
+      setBackgroundImage(imageUrl);
+      localStorage.setItem("background-image", imageUrl);
     };
 
     if (file) {
@@ -115,7 +117,7 @@ const HomePage = () => {
     const storedBackgroundColor = localStorage.getItem("background-color");
     const storedTextColor = localStorage.getItem("text-color");
     const storedBackgroundImage = localStorage.getItem("background-image");
-
+  
     if (storedBackgroundColor) {
       setBackgroundColor(storedBackgroundColor);
     }
@@ -127,26 +129,52 @@ const HomePage = () => {
       setOriginalImage(storedBackgroundImage);
     }
   }, []);
+  
 
   return (
     <div
       style={{
         backgroundColor: backgroundColor,
         color: textColor,
+        position: "relative",
+        zIndex: 1,
       }}
     >
-      <div
-        style={{
+      <div className="background-color-container" />
+      <div className="background-image-container">
+        {backgroundImage && (
+          <img className="background-image" src={backgroundImage} alt="Background" />
+        )}
+      </div>
+      <div>
+        <Box
+          sx={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: -1,
+            backgroundImage: `url(data:image/jpeg;base64,${backgroundImage})`,
+            backgroundSize: "cover",
+          }}
+        />
+      </div>
+  <div>
+      <Box
+        sx={{
           position: "fixed",
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
           zIndex: -1,
-          backgroundImage: `url(${backgroundImage})`,
+          backgroundImage: `url(data:image/jpeg;base64,${backgroundImage})`,
           backgroundSize: "cover",
         }}
       />
+    </div>
+
       <Stack direction={{ xs: "column", sm: "row" }}>
         <div style={{ flex: "1", padding: "20px", overflow: "auto" }}>
           <CenteredContainer>
@@ -253,32 +281,32 @@ const HomePage = () => {
             overflow: "auto",
           }}
         >
-          <Box mb={4}>
-            <Typography variant="h6">Customization:</Typography>
-            <TextField
-              label="Background Color"
-              value={backgroundColor}
-              onChange={handleBackgroundColorChange}
-              sx={{ marginBottom: 2 }}
-            />
-            <TextField
-              label="Text Color"
-              value={textColor}
-              onChange={handleTextColorChange}
-              sx={{ marginBottom: 2 }}
-            />
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleBackgroundImageUpload}
-              sx={{ marginBottom: 2 }}
-            />
-            {backgroundImage && (
-              <Button onClick={handleResetImage} sx={{ marginBottom: 2 }}>
-                Reset Image
-              </Button>
-            )}
-          </Box>
+           <Box mb={4}>
+          <Typography variant="h6">Customization:</Typography>
+          <TextField
+            label="Background Color"
+            value={backgroundColor}
+            onChange={handleBackgroundColorChange}
+            sx={{ marginBottom: 2 }}
+          />
+          <TextField
+            label="Text Color"
+            value={textColor}
+            onChange={handleTextColorChange}
+            sx={{ marginBottom: 2 }}
+          />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleBackgroundImageUpload}
+            sx={{ marginBottom: 2 }}
+          />
+          {backgroundImage && (
+            <Button onClick={handleResetImage} sx={{ marginBottom: 2 }}>
+              Reset Image
+            </Button>
+          )}
+        </Box>
           <MyTech />
         </div>
       </Stack>
