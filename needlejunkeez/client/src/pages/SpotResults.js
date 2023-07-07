@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Grid, Box, Typography } from "@mui/material";
-import SearchFunction from "../components/SearchFunction";
+import SearchOption from "../components/SearchOption";
 import AlbumCard from "../components/AlbumCard";
 
 function SpotResults() {
   const [spotifyResults, setSpotifyResults] = useState(null);
-  const saveAlbumData = () => {};
+  const saveAlbumData = () => { };
 
   return (
     <Box
@@ -15,7 +15,7 @@ function SpotResults() {
       minHeight="100vh"
     >
       <Box>
-        <SearchFunction updateResults={setSpotifyResults} />
+        <SearchOption updateResults={setSpotifyResults} />
 
         {spotifyResults && (
           <Box>

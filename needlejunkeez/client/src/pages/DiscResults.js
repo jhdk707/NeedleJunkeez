@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Grid, Box, Typography } from "@mui/material";
-import SearchFunction from "../components/SearchFunction";
+import SearchOption from "../components/SearchOption";
 import PurchaseAlbum from "../components/PurchaseAlbum";
 
 function DiscResults() {
   const [discogsResults, setDiscogsResults] = useState(null);
-  const saveAlbumData = () => {};
+  const saveAlbumData = () => { };
 
   return (
     <Box
@@ -15,7 +15,7 @@ function DiscResults() {
       minHeight="100vh"
     >
       <Box>
-        <SearchFunction updateResults={setDiscogsResults} />
+        <SearchOption updateResults={setDiscogsResults} />
 
         {discogsResults && (
           <Box>

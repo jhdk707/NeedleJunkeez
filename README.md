@@ -3,7 +3,7 @@
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
 
 <div align="center">
-  <img src="./src/components/images/welcome-photo.png" alt="Welcome Photo" />
+  <img src="./needlejunkeez/client/src/assets/welcomejunkeezlogo.png" alt="Welcome Photo" />
 </div>
 
 # Table of Contents
